@@ -1,0 +1,8 @@
+form{
+  .ng-valid {
+    border:green 1px solid;
+  }
+  .ng-invalid{
+    border:red 1px solid;
+  }
+}

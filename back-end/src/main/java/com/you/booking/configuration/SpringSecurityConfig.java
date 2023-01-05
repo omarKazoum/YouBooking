@@ -3,7 +3,7 @@ package com.you.booking.configuration;
 import com.you.booking.repository.UserRepository;
 import com.you.booking.security.Authorities;
 import com.you.booking.security.JwtFilter;
-import com.you.booking.service.UserDetailsService;
+import com.you.booking.service.implementations.UserDetailsService;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -39,13 +39,14 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/api/auth/**")
                 .permitAll()
-                .antMatchers("/api/user/**")
+                .anyRequest().permitAll()
+                /*.antMatchers("/api/user/**")
                 .authenticated()
                 .antMatchers("/api/v1/orders/**")
                 .hasAuthority(Authorities.MANAGE_ORDERS)
                 .antMatchers("/api/v1/products/**")
                 .hasAuthority(Authorities.MANAGE_PRODUCTS)
-                .and()
+                */.and()
                 .userDetailsService(userDetailsService)
                 .exceptionHandling()
                 .authenticationEntryPoint((req,resp,authExe)->{

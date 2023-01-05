@@ -1,6 +1,6 @@
 package com.you.booking.security;
 
-import com.you.booking.service.UserDetailsService;
+import com.you.booking.service.implementations.UserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;

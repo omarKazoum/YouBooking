@@ -7,6 +7,8 @@ import com.auth0.jwt.interfaces.DecodedJWT;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDate;
+import java.util.Calendar;
 import java.util.Date;
 
 @Component
@@ -15,10 +17,13 @@ public class JwtUtil {
     private String secret;
 
     public String generateToken(String email) {
+        Date expireDate=new Date();
+        Calendar c=Calendar.getInstance();
+        c.add(Calendar.DAY_OF_MONTH,1);
         return JWT.create()
                 .withSubject("user details")
                 .withClaim("email",email)
-                .withIssuedAt(new Date())
+                .withExpiresAt(c.getTime())
                 .withIssuer("visionaryCrofting/management")
                 .sign(Algorithm.HMAC256(secret));
     }

@@ -3,7 +3,7 @@ package com.you.booking.controller;
 import com.you.booking.dto.LoginDTO;
 import com.you.booking.exceptions.RegisterException;
 import com.you.booking.repository.UserRepository;
-import com.you.booking.service.UserDetailsService;
+import com.you.booking.service.implementations.UserDetailsService;
 import com.you.booking.dto.UserRegisterDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

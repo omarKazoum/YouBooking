@@ -1,34 +1,28 @@
 <div class="container-fluid">
-  <div class="row">
-      <form class="mt-5  col-lg-3 offset-lg-4 col-12 offset-0" >
+  <div class="row ">
+      <form class="mt-5  col-lg-3 offset-lg-4 col-12 offset-0" [formGroup]="loginFormGroup" (ngSubmit)="onSubmitLoginForm()">
+
+        <h3 class="text-center my-5" >Login to YouBooking</h3>
         <!-- Email input -->
         <div class="form-outline">
-          <input type="email" id="form2Example1" class="form-control" />
+          <input type="email" id="form2Example1" class="form-control" formControlName="email" />
           <label class="form-label" for="form2Example1">Email address</label>
         </div>
         <!-- Password input -->
         <div class="form-outline ">
-          <input type="password" id="form2Example2" class="form-control" />
+          <input type="password" id="form2Example2" class="form-control"  formControlName="password"/>
           <label class="form-label" for="form2Example2">Password</label>
         </div>
 
         <!-- 2 column grid layout for inline styling -->
         <div class="row ">
-          <div class="col d-flex justify-content-center">
-            <!-- Checkbox -->
-            <div class="form-check">
-              <input class="form-check-input" type="checkbox" value="" id="form2Example31" checked />
-              <label class="form-check-label" for="form2Example31"> Remember me </label>
-            </div>
-          </div>
 
           <div class="col">
-            <!-- Simple link -->
-            <a href="#!">Forgot password?</a>
+            <a routerLink="/register">create a account</a>
           </div>
         </div>
         <!-- Submit button -->
-        <button type="button" class="btn btn-primary btn-block mb-4 w-100">Sign in</button>
+        <button type="submit" class="btn btn-primary btn-block mb-4 w-100" [disabled]="loginFormGroup.invalid" >Sign in</button>
       </form>
   </div>
 </div>

@@ -1,0 +1,73 @@
+<div class="container-fluid">
+  <div class="row mt-5 mb-1">
+    <div class="col">
+      <h1 class="mb-5">Rooms</h1>
+    </div>
+    <div class="col" *ngIf="role!='CLIENT'">
+      <div class="d-flex flex-row-reverse w-100 align-items-center ">
+        <a routerLink="/rooms/add" class="btn btn-success" ><i class="fa-sharp fa-solid fa-plus"></i></a>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+      <form [formGroup]="searchFormGroup" class="col" (ngSubmit)="filterSubmit()">
+        <div class="form-row align-items-center d-flex flex-row gap-1 flex-wrap justify-content-center">
+          <div class="col-auto">
+              <input type="text" class="form-control mb-2" id="hotelName" formControlName="hotelName" placeholder="Hotel name">
+          </div>
+          <div class="col-auto">
+            <div class="form-check mb-2 flex-direction-row d-flex align-items-center gap-1">
+              <label for="fromDate" class="text-nowrap"> Available from</label>
+              <input class="form-control " type="date" id="fromDate" formControlName="fromDate">
+            </div>
+          </div>
+          <div class="col-auto">
+            <div class="form-check mb-2 flex-direction-row d-flex align-items-center gap-1">
+              <label for="fromDate" class="text-nowrap"> to</label>
+              <input class="form-control " type="date" id="toDate" formControlName="toDate">
+            </div>
+          </div>
+
+          <div class="col-auto">
+            <div class="form-check mb-2 flex-direction-row d-flex align-items-center gap-1">
+            <label class="form-label text-nowrap" for="cityId">city :</label>
+            <select class="form-select" formControlName="cityId" id="cityId" >
+              <!-- list possible roles-->
+              <option *ngFor="let city of cities$ | async" [value]="city.id">
+                {{city.name}}
+              </option>
+            </select>
+            </div>
+          </div>
+
+          <div class="col-auto">
+            <button type="submit" class="btn btn-primary mb-2" [disabled]="searchFormGroup.invalid">Apply filter</button>
+          </div>
+        </div>
+      </form>
+  </div>
+    <!--TODO fix this according to user role -->
+
+  </div>
+
+<div class="container-fluid" *ngIf="rooms$ | async as page">
+  <div class="row" *ngIf="!page.empty" >
+    <div class="col-12 col-lg-3" *ngFor="let room of page.content">
+      <app-room-item [role]="role" [roomItem]="room"></app-room-item>
+    </div>
+    <nav aria-label="Page navigation example" >
+      <ul class="pagination">
+        <li class="page-item"><a class="page-link" *ngIf="!page.first" (click)="updateResults(page.pageable.pageNumber-1)">Previous</a></li>
+        <li class="page-item d-flex align-items-center"><span class="page-link">{{page.number+1+' / '+page.totalPages}}</span></li>
+        <li class="page-item"><a class="page-link" *ngIf="!page.last" (click)="updateResults(page.pageable.pageNumber+1)">Next</a></li>
+      </ul>
+    </nav>
+
+    <div class="alert alert-info" *ngIf="page.empty">
+      No hotels found
+    </div>
+  </div>
+  <div class="alert alert-info" *ngIf="page.empty">
+    No hotels found!
+  </div>
+</div>

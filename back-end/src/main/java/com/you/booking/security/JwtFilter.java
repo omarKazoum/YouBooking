@@ -45,3 +45,4 @@ public class JwtFilter extends OncePerRequestFilter {
         filterChain.doFilter(request,response);
     }
 }
+//{"id":null,"reference":"Et est voluptatibus ","isAvailable":true,"hotelId":"4","price":522}

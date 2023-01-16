@@ -32,7 +32,9 @@ public class YouBookingApplication implements CommandLineRunner {
         o.setPassword(new BCryptPasswordEncoder().encode("passpass"));
         userRepository.save(o);
 
-        cityRepository.save(new City(1l,"taroudant"));*/
-
+        cityRepository.save(new City(1l,"taroudant"));
+        cityRepository.save(new City(1l,"agadir"));
+        cityRepository.save(new City(1l,"marrakech"));
+*/
     }
 }

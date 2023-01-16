@@ -1,0 +1,50 @@
+<div class="container-fluid">
+  <div class="row">
+    <form class="mt-5 col-lg-4 offset-lg-4 col-12 offset-0" [formGroup]="hotelFormGroup" (ngSubmit)="onSubmit($event)" >
+      <h3 class="text-center my-5 " >{{formMode=='add'?'Add':'Edit'}} Hotel {{formMode=='edit'&& "'"+hotelFormGroup.value['title']+"'"}}</h3>
+      <input type="hidden" formControlName="id">
+      <div class="form-outline">
+        <label class="form-label" for="title">Hotel title</label>
+        <input type="text" id="title" class="form-control" formControlName="title" />
+      </div>
+      <div class="form-outline">
+        <label class="form-label" for="description">Description</label>
+        <textarea rows="3" type="description" id="description" class="form-control" formControlName="description" ></textarea>
+      </div>
+      <div class="form-group">
+        <label for="image">Hotel image</label>
+        <img [src]="data.imageBase64" class="hotel-img"  >
+        <input type="file" formControlName="image" class="form-control-file" id="image" accept="image/*">
+      </div>
+      <div class="form-outline">
+        <label class="form-label" for="cityId">city :</label>
+        <select class="form-select" formControlName="cityId" id="cityId" >
+          <!-- list possible roles-->
+          <option *ngFor="let city of cities$ | async" [value]="city.id">
+            {{city.name}}
+          </option>
+        </select>
+      </div>
+
+       <div class="form-check" >
+        <label class="form-check-label" for="isAvailable">Available</label>
+        <input type="checkbox"
+               id="isAvailable"
+               [ngModel]="data.isAvailable"
+               class="form-check-input"
+               formControlName="isAvailable"
+        />
+      </div>
+     <div class="form-check" *ngIf="formMode=='edit' && (role==='ADMIN')">
+            <label class="form-check-label" for="isApproved">Approved</label>
+            <input type="checkbox"
+                   id="isApproved"
+                   class="form-check-input"
+                   formControlName="isApproved"
+            />
+          </div>
+
+      <button type="submit" class="btn btn-primary btn-block mb-4 w-100 my-2" [disabled]="hotelFormGroup.invalid" >save</button>
+    </form>
+  </div>
+</div>

@@ -1,18 +1,23 @@
 package com.you.booking.dto;
 
-import com.you.booking.entity.Hotel;
-import com.you.booking.entity.Reservation;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
-import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
 @Data
 @AllArgsConstructor
 public class RoomDTO {
     private Long id;
     private String reference ;
-    boolean isAvailable=true;
+    boolean isAvailable;
     private Long hotelId;
+    private String HotelTitle;
+    private float price;
+    public void setIsAvailable(boolean b){
+        this.isAvailable=b;
+    }
+    @JsonProperty("isAvailable")
+    public boolean getIsAvailable(){
+        return this.isAvailable;
+    }
 }

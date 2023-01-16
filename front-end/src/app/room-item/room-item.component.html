@@ -1,0 +1,19 @@
+<div class="card w-100" style="">
+  <img class="card-img-top" src="/assets/room.webp" [alt]="roomItem.HotelTitle">
+  <div class="card-body">
+    <h5 class="card-title">{{roomItem.reference}}</h5>
+    <p><i class="text-success">
+      {{(!roomItem.isAvailable&&""||"Not")+' Available'}}
+    </i>
+      <i class=" fa-dot-circle" [ngClass]="{fas:roomItem.isAvailable,fat:!roomItem.isAvailable}"></i>
+    </p>
+    <small class="text-muted">{{roomItem.HotelTitle}}</small>
+    <b>One night: <span class="text-success">{{roomItem.price}}MAD</span></b>
+    <br>
+    <a routerLink="/rooms/edit/{{roomItem.id}}" class="text-success">
+      <i class="fa-regular fa-pen-to-square"></i>
+      edit
+    </a>
+    <button class="btn btn-success" *ngIf="role=='CLIENT'">make reservation</button>
+  </div>
+</div>

@@ -1,0 +1,42 @@
+<div class="container-fluid">
+  <div class="row">
+    <form class="mt-5  col-lg-3 offset-lg-4 col-12 offset-0 gap-2 d-flex flex-column " [formGroup]="roomFormGroup" (ngSubmit)="onSubmit($event)">
+      <h3 class="text-center my-5 ">{{formMode == 'add' ? 'Add' : 'Edit'}}
+        Hotel {{formMode == 'edit' && "'" + roomFormGroup.value['title'] + "'"}}</h3>
+      <input type="hidden" formControlName="id">
+      <div class="form-outline">
+        <label class="form-label" for="reference">Room reference</label>
+        <input type="text" id="reference" class="form-control" formControlName="reference"/>
+      </div>
+        <div class="form-check">
+          <input type="checkbox"
+                 id="isAvailable"
+                 [ngModel]="data.isAvailable"
+                 class="form-check-input"
+                 formControlName="isAvailable"
+          />
+          <label class="form-check-label" for="isAvailable">Available</label>
+        </div>
+      <div class="form-outline">
+        <label class="form-label" for="hotelId">hotel :</label>
+        <select class="form-select" formControlName="hotelId" id="hotelId">
+          <!-- list possible roles-->
+          <option *ngFor="let hotel of hotels$ | async" [value]="hotel.id">
+            {{hotel.title}}
+          </option>
+        </select>
+      </div>
+      <div class="form-outline">
+        <label class="form-label" for="price">Price per night</label>
+        <div class="input-group mb-2">
+          <input type="number" id="price" class="form-control" formControlName="price" value="100">
+          <div class="input-group-prepend">
+            <div class="input-group-text">MAD</div>
+          </div>
+        </div>
+      </div>
+      <button type="submit" class="btn btn-primary btn-block mb-4 w-100 my-2" [disabled]="roomFormGroup.invalid">save
+      </button>
+    </form>
+  </div>
+</div>

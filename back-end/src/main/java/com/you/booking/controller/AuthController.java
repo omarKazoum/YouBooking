@@ -1,10 +1,9 @@
 package com.you.booking.controller;
 
-import com.you.booking.dto.LoginDTO;
 import com.you.booking.exceptions.RegisterException;
 import com.you.booking.repository.UserRepository;
 import com.you.booking.service.implementations.UserDetailsService;
-import com.you.booking.dto.UserRegisterDTO;
+import com.you.booking.dto.AuthDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,10 +21,10 @@ public class AuthController {
     @Autowired
     UserRepository userRepository;
     @PostMapping("/register")
-    ResponseEntity register(@RequestBody UserRegisterDTO userDTO){
+    ResponseEntity register(@RequestBody AuthDTO userDTO){
         try{
-            UserRegisterDTO userRegisterDTO=userDetailsService.register(userDTO);
-            return new ResponseEntity<>(userRegisterDTO, HttpStatus.ACCEPTED);
+            AuthDTO authDTO =userDetailsService.register(userDTO);
+            return new ResponseEntity<>(authDTO, HttpStatus.ACCEPTED);
 
         }catch (RegisterException exception){
             exception.printStackTrace();
@@ -34,7 +33,7 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    ResponseEntity login(@RequestBody LoginDTO loginDTO) {
+    ResponseEntity login(@RequestBody AuthDTO loginDTO) {
         try {
             return new ResponseEntity<>(userDetailsService.login(loginDTO), HttpStatus.ACCEPTED);
         }catch (Exception exception){

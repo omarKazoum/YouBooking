@@ -1,1 +1,9 @@
 /* You can add global styles to this file, and also import other style files */
+form{
+  .ng-valid {
+    border:green 1px solid;
+  }
+  .ng-invalid{
+    border:red 1px solid;
+  }
+}

@@ -6,7 +6,7 @@ import lombok.Data;
 
 @Data
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
-public class UserRegisterDTO {
+public class AuthDTO {
     Long id;
     String email;
     String firstName;

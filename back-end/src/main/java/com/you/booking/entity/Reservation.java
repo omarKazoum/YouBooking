@@ -21,7 +21,7 @@ public class Reservation {
     private Client client;
     private ReservationStatusEnum status=ReservationStatusEnum.CREATED;
 
-    private enum ReservationStatusEnum {
+    public enum ReservationStatusEnum {
         CREATED,CONFIRMED,CANCELED,REJECTED;
     }
 }

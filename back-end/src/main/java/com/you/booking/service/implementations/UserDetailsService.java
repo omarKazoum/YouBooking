@@ -1,7 +1,6 @@
 package com.you.booking.service.implementations;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.you.booking.dto.LoginDTO;
 import com.you.booking.entity.Client;
 import com.you.booking.entity.Owner;
 import com.you.booking.entity.RoleEnum;
@@ -10,7 +9,7 @@ import com.you.booking.exceptions.RegisterException;
 import com.you.booking.repository.UserRepository;
 import com.you.booking.security.JwtUtil;
 import com.you.booking.security.SecurityUtils;
-import com.you.booking.dto.UserRegisterDTO;
+import com.you.booking.dto.AuthDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationCredentialsNotFoundException;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -43,7 +42,7 @@ public class UserDetailsService implements org.springframework.security.core.use
                 user.getPassword(),
                 SecurityUtils.getAuthoritiesForRole(user.getRole()));
     }
-    public UserRegisterDTO register(UserRegisterDTO userDTO) throws RegisterException {
+    public AuthDTO register(final AuthDTO userDTO) throws RegisterException {
         if (userRepository.findByEmail(userDTO.getEmail()).isPresent())
             throw new RegisterException("email already in use");
 
@@ -76,13 +75,16 @@ public class UserDetailsService implements org.springframework.security.core.use
 
         throw new UsernameNotFoundException("invalid user role");
     }
-    public LoginDTO login(LoginDTO loginDTO) throws AuthenticationCredentialsNotFoundException{
+    public AuthDTO login(AuthDTO loginDTO) throws AuthenticationCredentialsNotFoundException{
             UsernamePasswordAuthenticationToken token=new UsernamePasswordAuthenticationToken(loginDTO.getEmail(),loginDTO.getPassword());
             authManager.authenticate(token);
-        LoginDTO responseDto=new LoginDTO();
+            final AuthDTO responseDto=new AuthDTO();
+            User u=userRepository.findByEmail(loginDTO.getEmail()).get();
+            responseDto.setFirstName(u.getFirstName());
+            responseDto.setLastName(u.getLastName());
+            responseDto.setRole(u.getRole());
             String jwtToken=jwtUtil.generateToken(loginDTO.getEmail());
             responseDto.setJwtToken(jwtToken);
             return responseDto;
-
     }
 }

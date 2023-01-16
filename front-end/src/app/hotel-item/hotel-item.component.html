@@ -1,0 +1,21 @@
+<div class="card w-100" style="">
+  <img class="card-img-top hotel-img" [src]="hotelItem.imageBase64" [alt]="hotelItem.imageName" >
+  <div class="card-body">
+    <h5 class="card-title">{{hotelItem.title}}</h5>
+    <p><i class="text-success">
+      {{(!hotelItem.isApproved?"Not":'')+' Approved'}}
+    </i>
+      <i class="fa-solid fa-check" *ngIf="hotelItem.isApproved"></i>
+    </p>
+    <small class="text-muted">{{hotelItem.ownerName}}</small>
+    <p class="card-text mt-2">{{hotelItem.description}}</p>
+    <a routerLink="/hotels/edit/{{hotelItem.id}}" class="text-success">
+      <i class="fa-solid fa-pen-to-square"></i>
+      edit
+    </a>
+    <a routerLink="{{'/rooms'}}" [queryParams]="{hotelId:hotelItem.id}" class="text-success m-1">
+      <i class="fa-solid fa-house"></i>
+      rooms
+    </a>
+  </div>
+</div>

@@ -1,11 +1,11 @@
 <div class="container-fluid">
 
   <div class="row">
-    <form class="mt-5  col-lg-3 offset-lg-4 col-12 offset-0" (ngSubmit)="onSubmit()" >
-      <h2 class="text-center m-2">Sign up to</h2>
+    <form class="mt-5  col-lg-3 offset-lg-4 col-12 offset-0" [formGroup]="registerForm" (ngSubmit)="onSubmit()" >
+      <h3 class="text-center my-5 " >Register to YouBooking</h3>
       <div class="form-outline">
         <label class="form-label" for="{{ROLE_KEY}}">Create account as :</label>
-        <select class="form-select" name="{{ROLE_KEY}}" id="{{ROLE_KEY}}" [(ngModel)]="formData.role">
+        <select class="form-select" formControlName="{{ROLE_KEY}}" id="{{ROLE_KEY}}" >
           <!-- list possible roles-->
           <option *ngFor="let role of roles" [value]="role">
             {{role}}
@@ -19,8 +19,7 @@
         <input type="text"
                id="{{FIRST_NAME_KEY}}"
                class="form-control"
-               name="{{FIRST_NAME_KEY}}"
-               [(ngModel)]="formData.firstName"
+               [formControlName]="FIRST_NAME_KEY"
         />
       </div>
       <!-- Last name input -->
@@ -29,29 +28,26 @@
         <input type="text"
                id="{{LAST_NAME_KEY}}"
                class="form-control"
-               name="{{LAST_NAME_KEY}}"
-               [(ngModel)]="formData.lastName"
+               [formControlName]="LAST_NAME_KEY"
         />
       </div>
       <!-- Email input -->
       <div class="form-outline">
         <label class="form-label" for="{{EMAIL_KEY}}">Email address</label>
         <input type="email"
-               [(ngModel)]="formData.email"
-               id="{{EMAIL_KEY}}" class="form-control" name="{{EMAIL_KEY}}"/>
+               id="{{EMAIL_KEY}}" class="form-control" [formControlName]="EMAIL_KEY"/>
       </div>
       <!-- Password input -->
       <div class="form-outline ">
         <label class="form-label" for="{{PASSWORD_KEY}}">Password</label>
         <input type="password"
-               [(ngModel)]="formData.password"
-               id="{{PASSWORD_KEY}}" class="form-control" name="{{PASSWORD_KEY}}"/>
+               id="{{PASSWORD_KEY}}" class="form-control" [formControlName]="PASSWORD_KEY"/>
       </div>
-      <div class="alert alert-success">
-        data is {{formData | json}}
+      <button type="submit" class="btn btn-primary btn-block mb-4 w-100 my-2" [disabled]="registerForm.invalid" >Sign up</button>
+      <div class="col">
+        Already have an account ? <a routerLink="/login" class="w-100 my-1">login</a>
       </div>
-      <!-- Submit button -->
-      <button type="submit" class="btn btn-primary btn-block mb-4 w-100">Sign up</button>
+
     </form>
   </div>
 </div>

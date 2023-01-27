@@ -7,7 +7,7 @@ pipeline {
       }
     }
 
-    stage('list files') {
+    stage('runing tests') {
       parallel {
         stage('list files') {
           steps {

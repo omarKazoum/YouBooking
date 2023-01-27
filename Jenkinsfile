@@ -9,7 +9,7 @@ pipeline {
 
     stage('list files') {
       steps {
-        sh 'ls -a'
+        sh 'ls -la'
       }
     }
 

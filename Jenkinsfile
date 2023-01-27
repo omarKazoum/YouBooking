@@ -24,5 +24,11 @@ pipeline {
       }
     }
 
+    stage('build docker images') {
+      steps {
+        sh 'cd backend && docker buid -t backend .'
+      }
+    }
+
   }
 }

@@ -15,7 +15,7 @@ pipeline {
           }
         }
 
-        stage('front-end test') {
+        stage('back-end test') {
           steps {
             sh 'cd back-end && mvn dependency:resolve test'
           }

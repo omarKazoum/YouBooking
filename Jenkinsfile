@@ -8,8 +8,19 @@ pipeline {
     }
 
     stage('list files') {
-      steps {
-        sh 'ls -la'
+      parallel {
+        stage('list files') {
+          steps {
+            sh 'ls -la'
+          }
+        }
+
+        stage('front-end test') {
+          steps {
+            sh 'cd back-end && mvn dependency:resolve test'
+          }
+        }
+
       }
     }
 

@@ -7,9 +7,20 @@ pipeline {
       }
     }
 
-    stage('error') {
-      steps {
-        sh 'ls -a'
+    stage('list files') {
+      parallel {
+        stage('list files') {
+          steps {
+            sh 'ls -la'
+          }
+        }
+
+        stage('back-end test') {
+          steps {
+            sh 'cd back-end && mvn dependency:resolve test'
+          }
+        }
+
       }
     }
 

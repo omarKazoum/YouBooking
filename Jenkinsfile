@@ -33,7 +33,7 @@ pipeline {
 
     stage('run database') {
       steps {
-        sh 'docker run -d --name database -p 9990:5432 --network youbooking --hostname database -e POSTGRES_USER=root -e POSTGRES_PASSWORD=root -e POSTGRES_DB=YouBooking postgres:9 || true'
+        sh 'docker run -d --name database -p 9990:5432 --network youbooking --hostname database -e POSTGRES_USER=root -e POSTGRES_PASSWORD=root -e POSTGRES_DB=YouBooking postgres:9 || true || docker start database'
       }
     }
 

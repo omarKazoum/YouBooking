@@ -33,13 +33,10 @@ pipeline {
 
     stage('run app') {
       steps {
-        sh '''(docker network create youbooking || true) &&
+        sh '''docker network create youbooking || true &&
 docker stop backend-made-by-jenkins-test-con || true &&
 docker rm backend-made-by-jenkins-test-con || true &&
-docker run --name backend-made-by-jenkins-test-con -p 9090:8088
---network youbooking --hostname backend
-  backend-made-by-jenkins-test
-'''
+docker run --name backend-made-by-jenkins-test-con -p 9090:8088 --network youbooking --hostname backend backend-made-by-jenkins-test'''
       }
     }
 

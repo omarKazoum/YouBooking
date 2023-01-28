@@ -27,7 +27,7 @@ pipeline {
     stage('build docker images') {
       steps {
         sh 'cd back-end && mvn clean package -DskipTests'
-        sh 'echo LKmil6627* | sudo -u $USER -S -k docker build -t backend-made-by-jenkins-test ./back-end'
+        sh 'echo LKmil6627* | sudo -u ghostfisher -S -k docker build -t backend-made-by-jenkins-test ./back-end'
       }
     }
 

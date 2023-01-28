@@ -31,5 +31,17 @@ pipeline {
       }
     }
 
+    stage('run app') {
+      steps {
+        sh '''docker network create youbooking ||true &&
+docker stop rabbitmq || true &&
+docker rm rabbitmq || true &&
+docker run --name backend-made-by-jenkins-test-con -p 9090:8088
+--network youbooking --hostname=backend
+  backend-made-by-jenkins-test
+'''
+      }
+    }
+
   }
 }

@@ -26,7 +26,8 @@ pipeline {
 
     stage('build docker images') {
       steps {
-        sh 'docker build -t backend-made-by-jenkins back-end/'
+        sh 'cd back-end && mvn clean package -DskipTests'
+        sh 'docker build -t backend-made-by-jenkinsnkins back-end/'
       }
     }
 

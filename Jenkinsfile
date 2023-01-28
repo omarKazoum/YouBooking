@@ -25,18 +25,45 @@ pipeline {
     }
 
     stage('build docker images') {
+      parallel {
+        stage('build docker images') {
+          steps {
+            sh 'cd back-end && mvn package -DskipTests'
+            sh 'docker build -t backend-made-by-jenkins-test ./back-end'
+          }
+        }
+
+        stage('create docker network') {
+          steps {
+            sh 'docker network create youbooking || true'
+          }
+        }
+
+      }
+    }
+
+    stage('run database') {
       steps {
-        sh 'cd back-end && mvn package -DskipTests'
-        sh 'docker build -t backend-made-by-jenkins-test ./back-end'
+        sh 'docker run -p 9990:5432 --network youbooking --hostname localhost -e POSTGRES_USER=root -e POSTGRES_PASSWORD=root -e POSTGRES_DB=YouBooking postgres:9'
       }
     }
 
     stage('run app') {
-      steps {
-        sh '''docker network create youbooking || true &&
-docker stop backend-made-by-jenkins-test-con || true &&
+      parallel {
+        stage('run backend') {
+          steps {
+            sh '''docker stop backend-made-by-jenkins-test-con || true &&
 docker rm backend-made-by-jenkins-test-con || true &&
 docker run --name backend-made-by-jenkins-test-con -p 9090:8088 --network youbooking --hostname backend backend-made-by-jenkins-test'''
+          }
+        }
+
+        stage('run frontend') {
+          steps {
+            sh 'echo start front end script here'
+          }
+        }
+
       }
     }
 

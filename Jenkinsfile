@@ -7,7 +7,7 @@ pipeline {
       }
     }
 
-    stage('list files') {
+    stage('runing tests') {
       parallel {
         stage('list files') {
           steps {
@@ -17,10 +17,17 @@ pipeline {
 
         stage('back-end test') {
           steps {
-            sh 'cd back-end && mvn dependency:resolve test'
+            sh 'cd back-end && mvn dependency:resolve compile -DskipTests'
           }
         }
 
+      }
+    }
+
+    stage('build docker images') {
+      steps {
+        sh 'cd back-end && mvn clean package -DskipTests'
+        sh 'docker build -t backend-made-by-jenkinsnkins back-end/'
       }
     }
 

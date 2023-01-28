@@ -26,7 +26,7 @@ pipeline {
 
     stage('build docker images') {
       steps {
-        sh 'docker buid -t backend .'
+        sh 'docker build -t backend ./'
       }
     }
 

@@ -7,20 +7,9 @@ pipeline {
       }
     }
 
-    stage('runing tests') {
-      parallel {
-        stage('list files') {
-          steps {
-            sh 'ls -la'
-          }
-        }
-
-        stage('back-end test') {
-          steps {
-            sh 'cd back-end && mvn dependency:resolve compile -DskipTests'
-          }
-        }
-
+    stage('test') {
+      steps {
+        sh 'cd back-end && mvn dependency:resolve compile -DskipTests'
       }
     }
 

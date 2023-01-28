@@ -26,7 +26,7 @@ pipeline {
 
     stage('build docker images') {
       steps {
-        sh 'docker build -t backend-made-by-jenkins backend/'
+        sh 'docker build -t backend-made-by-jenkins back-end/'
       }
     }
 

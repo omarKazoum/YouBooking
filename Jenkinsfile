@@ -9,7 +9,7 @@ pipeline {
 
     stage('test') {
       steps {
-        sh 'cd back-end && mvn dependency:resolve compile -DskipTests'
+        sh 'cd back-end && mvn test'
       }
     }
 

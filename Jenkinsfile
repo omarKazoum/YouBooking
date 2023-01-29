@@ -22,17 +22,15 @@ pipeline {
             sh 'cd back-end && mvn package -DskipTests'
             sh 'docker build -t backend-made-by-jenkins-test ./back-end'
           }
-        }
-
-        stage('create docker network') {
-          steps {
-            sh 'docker network create youbooking || true'
-          }
-        }
-
       }
     }
-
+    stage("preparing for deployment"){
+        stage('create docker network') {
+                  steps {
+                    sh 'docker network create youbooking || true'
+                  }
+                }
+    }
     stage('run database') {
       steps {
         sh 'docker run -d --name database -p 9990:5432 --network youbooking --hostname database -e POSTGRES_USER=root -e POSTGRES_PASSWORD=root -e POSTGRES_DB=YouBooking postgres:9|| docker start database'

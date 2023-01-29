@@ -23,15 +23,17 @@
                 sh 'cd back-end && mvn package -DskipTests'
                 sh 'docker build -t backend-made-by-jenkins-test ./back-end'
               }
+            }
           }
         }
-        }
-        stage("preparing for deployment"){
-            stage('create docker network') {
-                      steps {
-                        sh 'docker network create youbooking || true'
-                      }
-                    }
+        stage('preparing for deployment'){
+            parallel {
+                stage('create docker network') {
+                          steps {
+                            sh 'docker network create youbooking || true'
+                          }
+                }
+            }
         }
         stage('run database') {
           steps {

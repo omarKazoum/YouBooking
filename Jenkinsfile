@@ -9,7 +9,9 @@ pipeline {
 
     stage('test') {
       steps {
+        sh 'docker run -d --name database-test -p 5432:5432  -e POSTGRES_USER=root -e POSTGRES_PASSWORD=root -e POSTGRES_DB=YouBooking postgres:9'
         sh 'cd back-end && mvn test'
+        sh 'docker stop database-test && docker container rm database-test'
       }
     }
 

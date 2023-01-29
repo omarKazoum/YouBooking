@@ -1,6 +1,7 @@
 pipeline {
   agent any
   stages {
+  
     stage('checkout code') {
       steps {
         git(url: 'https://github.com/omarKazoum/YouBooking.git', branch: 'main', changelog: true, poll: true)
@@ -23,6 +24,7 @@ pipeline {
             sh 'docker build -t backend-made-by-jenkins-test ./back-end'
           }
       }
+    }
     }
     stage("preparing for deployment"){
         stage('create docker network') {
@@ -56,5 +58,7 @@ docker run -d --name backend-made-by-jenkins-test-con -p 9090:8088 --network you
       }
     }
 
-  }
+
+}
+}
 }

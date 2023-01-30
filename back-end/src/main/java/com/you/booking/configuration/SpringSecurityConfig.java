@@ -43,6 +43,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(HttpSecurity httpSecurity) throws Exception {
+
         httpSecurity.csrf()
                 .disable().cors().configurationSource(getCorsConfigurationSource()).and()
                 .httpBasic().disable()

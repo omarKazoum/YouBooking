@@ -39,6 +39,8 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
     UserDetailsService userDetailsService;
     @Autowired
     JwtFilter jwtFilter;
+
+
     @Override
     public void configure(HttpSecurity httpSecurity) throws Exception {
         httpSecurity.csrf()

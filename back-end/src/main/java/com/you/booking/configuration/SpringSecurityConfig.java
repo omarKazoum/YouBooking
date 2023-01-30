@@ -32,7 +32,6 @@ import java.util.List;
 @Data
 @SuppressWarnings("deprecation")
 public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
-
     @Autowired
     UserRepository userRepository;
     @Autowired
